@@ -1,12 +1,12 @@
 package com.isep.project.utils;
 
+import com.isep.project.model.Tweet;
 import com.isep.project.model.User;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
-import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.json.JSONArray;
@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class WSConfiguration {
 
-    private static Logger log = Logger.getLogger(WSConfiguration.class);
+    private static final Logger log = Logger.getLogger(WSConfiguration.class);
     public static WebResource initClientWS()
     {
         ClientConfig config = new DefaultClientConfig();
@@ -39,7 +39,6 @@ public class WSConfiguration {
     }
 
     public List<User> getUsers() {
-        BasicConfigurator.configure();
 
         /* Get the JSON code from the server */
         WebResource ws = WSConfiguration.initClientWS().path("services").path("getUsers");
@@ -78,7 +77,43 @@ public class WSConfiguration {
         return listUser;
     }
 
-    public static void getTweets(){
+    public static List<Tweet> getTweets(int userId){
+
+        /* Get the JSON code from the server */
+        WebResource ws = WSConfiguration.initClientWS().path("services").path("getTweets").path(Integer.toString(userId));
+        ClientResponse cr = ws.accept(MediaType.APPLICATION_JSON).get(ClientResponse.class);
+        String jsonResponse = cr.getEntity(String.class);
+
+        /* Initialize listTweets, jsonArray & mapper */
+        JSONArray jsonArray = null;
+        List<Tweet> listTweets = new ArrayList<Tweet>();
+        ObjectMapper mapper = new ObjectMapper();
+
+        /* Insert jsonResponse in jsonArray */
+        try {
+            jsonArray = new JSONArray(jsonResponse);
+        } catch (JSONException e) {
+            log.error("Creation of jsonArray : " + e.getMessage());
+        }
+
+
+        /* Transform each item of the jsonArray in java object (tweet) */
+        for (int i=0 ; i < jsonArray.length(); i++)
+        {
+            JSONObject obj = null;
+            try {
+                obj = jsonArray.getJSONObject(i);
+            } catch (JSONException e) {
+                log.error("jsonArray in getTweets : " + e.getMessage());
+            }
+            try {
+                listTweets.add(mapper.readValue(obj.toString(), Tweet.class));
+            } catch (IOException e) {
+                log.error("JSON mapper in getTweets : " + e.getMessage());
+            }
+        }
+        log.info(listTweets.size());
+        return listTweets;
 
     }
 }
