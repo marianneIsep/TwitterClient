@@ -27,7 +27,11 @@
         </form>
 
         <form method="post" action="listtweets&userid">
-            <input name="utilisateur" type="text" placeholder="Nom de l'utilisateur" class="utilisateur">
+            <select name="utilisateurs" class="liste">
+                <option value="choix">Premier choix</option>
+                <option value="choix">Deuxième choix</option>
+                <option value="choix">Troisième choix</option>
+            </select>
             <input name="bouton_tweets" value="Récupérer les tweets d'un utilisateur" type="submit" class="bouton">
         </form>
 

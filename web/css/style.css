@@ -14,9 +14,8 @@ fieldset{
     margin: 10px;
     width: 250px;
     height: 200px;
-    floot: left;
     border: 1px;
-
+    float: left;
 
 
 }
@@ -31,9 +30,10 @@ fieldset{
 
     width: 600px;
     height: 300px;
-    position:absolute;
-    left: 400px;
-    top: 35px;
+    /*position:absolute;
+    left: 400px;*/
+    margin-top: 65px;
+    margin-left: 30px;
     overflow-y: scroll;
     overflow-x: hidden;
     border-style: solid;
@@ -41,7 +41,23 @@ fieldset{
 
 }
 
+.affichage, .fieldset{
+    display: inline-block;
+    vertical-align: top;
+}
+
 .utilisateur{
     width: 250px;
     border-radius: 5px;
+}
+
+.liste{
+    width: 250px;
+}
+
+body{
+    margin-left: auto;
+    margin-right: auto;
+    width: 1000px;
+    display: block;
 }
