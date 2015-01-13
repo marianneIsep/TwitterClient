@@ -19,7 +19,7 @@
 <div class="menu">
 
     <fieldset>
-        <form method="post" action="HomeServlet">
+        <form method="post" action="Home">
 
             <p>Menu</p>
 
@@ -27,10 +27,11 @@
         </form>
 
         <form method="post" action="listtweets&userid">
+
             <input name="utilisateur" type="text" placeholder="Nom de l'utilisateur" class="utilisateur">
             <input name="bouton_tweets" value="Récupérer les tweets d'un utilisateur" type="submit" class="bouton">
-        </form>
 
+        </form>
 
         <form method="post" action="listalltweets">
             <input name="bouton_alltweets" value="Récupérer tous les tweets" type="submit" class="bouton">
@@ -42,9 +43,9 @@
     </fieldset>
 </div>
 
-<div class="affichage">
+<div class="affichage" name="affichage_texte">
 
-    <%= request.getAttribute("user") %>
+    Hello <%= request.getAttribute("affichage_texte") %>
 
 </div>
 
