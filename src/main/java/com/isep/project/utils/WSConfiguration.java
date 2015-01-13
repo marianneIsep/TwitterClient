@@ -77,10 +77,10 @@ public class WSConfiguration {
         return listUser;
     }
 
-    public static List<Tweet> getTweets(int userId){
+    public List<Tweet> getTweetsFromUser(long userId){
 
         /* Get the JSON code from the server */
-        WebResource ws = WSConfiguration.initClientWS().path("services").path("getTweets").path(Integer.toString(userId));
+        WebResource ws = WSConfiguration.initClientWS().path("services").path("getTweets").path(Long.toString(userId));
         ClientResponse cr = ws.accept(MediaType.APPLICATION_JSON).get(ClientResponse.class);
         String jsonResponse = cr.getEntity(String.class);
 
@@ -116,4 +116,7 @@ public class WSConfiguration {
         return listTweets;
 
     }
+
+    public boolean addTweets(){return false;}
+
 }
