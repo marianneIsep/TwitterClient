@@ -1,0 +1,47 @@
+body{
+    display: inline-block;
+}
+
+p{
+    margin-top: 10px;
+    margin-left: 100px;
+    font-weight: bold;
+
+
+}
+
+fieldset{
+    margin: 10px;
+    width: 250px;
+    height: 200px;
+    floot: left;
+    border: 1px;
+
+
+
+}
+
+.bouton{
+
+    width: 250px;
+    height: 100px;
+}
+
+.affichage{
+
+    width: 600px;
+    height: 300px;
+    position:absolute;
+    left: 400px;
+    top: 35px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    border-style: solid;
+    border-width: 1px;
+
+}
+
+.utilisateur{
+    width: 250px;
+    border-radius: 5px;
+}
