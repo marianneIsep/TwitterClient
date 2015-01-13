@@ -7,18 +7,17 @@ import java.util.Set;
  * Created by Marianne on 31/12/14.
  */
 public class User {
-    private int id;
+    private long id;
     private String name;
     private Timestamp tweetDate;
     private String twitterNickname;
     private Set<Tweet> tweets;
 
-
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -53,6 +52,4 @@ public class User {
     public void setTweets(Set<Tweet> tweets) {
         this.tweets = tweets;
     }
-
-
 }
