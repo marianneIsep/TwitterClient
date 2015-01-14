@@ -8,9 +8,9 @@
         <servlet-name>HomeServlet</servlet-name>
         <servlet-class>com.isep.project.servlets.HomeServlet</servlet-class>
     </servlet>
-    
     <servlet-mapping>
         <servlet-name>HomeServlet</servlet-name>
         <url-pattern>/Home</url-pattern>
     </servlet-mapping>
+
 </web-app>

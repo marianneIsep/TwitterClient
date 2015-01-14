@@ -7,6 +7,7 @@ import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
+import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.json.JSONArray;
@@ -56,7 +57,6 @@ public class WSConfiguration {
         } catch (JSONException e) {
             log.error("Creation of jsonArray : " + e.getMessage());
         }
-
 
         /* Transform each item of the jsonArray in java object (user) */
         for (int i=0 ; i < jsonArray.length(); i++)
@@ -117,6 +117,13 @@ public class WSConfiguration {
 
     }
 
-    public boolean addTweets(){return false;}
+    public boolean addTweets() {
+        WebResource ws = WSConfiguration.initClientWS().path("services").path("addTweet");
+        ClientResponse cr = ws.accept(MediaType.APPLICATION_JSON).get(ClientResponse.class);
+        if(cr.getStatus() == 200)
+            return true;
+        else
+            return false;
+    }
 
 }
