@@ -27,18 +27,8 @@ public class HomeServlet extends HttpServlet {
         String resultView = JSPLOCATION + "result.jsp";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(resultView);
 
-        WSConfiguration wsConfiguration = new WSConfiguration();
+        request.setAttribute("texte", "kikou");;
 
-        String text = null;
-        for (User user : wsConfiguration.getUsers())
-        {
-            text += " id : " + user.getId();
-            text += " name " + user.getName();
-        }
-
-        request.setAttribute("user", text);
-        log.debug(request.getAttribute("user"));
-        request.setAttribute("user", "Marianne");
         dispatcher.forward(request, response) ;
 
 
@@ -49,7 +39,7 @@ public class HomeServlet extends HttpServlet {
 
         String resultView = JSPLOCATION + "result.jsp";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(resultView);
-        dispatcher.forward(request,response);
+
 
         if(request.getParameter("bouton_users")!=null){
             String myText = listUsers();
@@ -70,17 +60,17 @@ public class HomeServlet extends HttpServlet {
             request.setAttribute("texte", updateData());
         }
 
-
+        dispatcher.forward(request,response);
     }
 
 // Méthode pour récupérer tous les noms des utilisateurs
     private String listUsers(){
         WSConfiguration wsConfiguration = new WSConfiguration();
         List<User> maListe = wsConfiguration.getUsers();
-        String myText = null;
+        String myText = "Liste de tous les utiisateurs : </br>" ;
 
-        for(User user:maListe){
-            myText+=user.getName();
+        for(User user : maListe){
+            myText += user.getName() + "</br>";
         }
 
         return myText;

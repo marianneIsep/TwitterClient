@@ -47,7 +47,7 @@
 
 <div class="affichage" name="affichage_texte">
 
-    Hello <%=request.getAttribute("texte")%>
+    <%=request.getAttribute("texte")%>
 
 </div>
 

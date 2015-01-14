@@ -8,9 +8,19 @@
         <servlet-name>HomeServlet</servlet-name>
         <servlet-class>com.isep.project.servlets.HomeServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DDLServlet</servlet-name>
+        <servlet-class>com.isep.project.servlets.DDLServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomeServlet</servlet-name>
         <url-pattern>/Home</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DDLServlet</servlet-name>
+        <url-pattern>/ddl</url-pattern>
+    </servlet-mapping>
+
+
 
 </web-app>
