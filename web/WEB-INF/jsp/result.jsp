@@ -20,14 +20,14 @@
 <div class="menu">
 
     <fieldset>
-        <form method="post" action="HomeServlet">
+        <form method="post" action="/Home">
 
             <p>Menu</p>
 
             <input name="bouton_users" value="Afficher les utilisateurs" type="submit" class="bouton">
         </form>
 
-        <form method="post" action="HomeServlet">
+        <form method="post" action="/Home">
 
             <input name="utilisateur" type="text" placeholder="Nom de l'utilisateur" class="utilisateur">
 
@@ -35,11 +35,11 @@
 
         </form>
 
-        <form method="post" action="HomeServlet">
+        <form method="post" action="/Home">
             <input name="bouton_alltweets" value="Récupérer tous les tweets" type="submit" class="bouton">
         </form>
 
-        <form method="post" action="HomeServlet">
+        <form method="post" action="/Home">
             <input name="bouton_update" value="Mettre à jour la base de données" type="submit" class="bouton">
         </form>
     </fieldset>

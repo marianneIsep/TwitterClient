@@ -47,7 +47,8 @@ public class HomeServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("result.jsp");
+        String resultView = JSPLOCATION + "result.jsp";
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(resultView);
         dispatcher.forward(request,response);
 
         if(request.getParameter("bouton_users")!=null){
@@ -56,9 +57,9 @@ public class HomeServlet extends HttpServlet {
 
         }
         else if (request.getParameter("bouton_tweets")!=null){
-            long id = request.getParameter();
+            /*long id = request.getParameter();
             String myText = listTweets(id);
-            request.setAttribute("texte", myText);
+            request.setAttribute("texte", myText);*/
 
         }
         else if (request.getParameter("bouton_alltweets")!=null){
