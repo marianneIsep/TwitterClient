@@ -27,7 +27,7 @@ public class HomeServlet extends HttpServlet {
         String resultView = JSPLOCATION + "result.jsp";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(resultView);
 
-        /*WSConfiguration wsConfiguration = new WSConfiguration();
+        WSConfiguration wsConfiguration = new WSConfiguration();
 
         String text = null;
         for (User user : wsConfiguration.getUsers())
@@ -36,9 +36,9 @@ public class HomeServlet extends HttpServlet {
             text += " name " + user.getName();
         }
 
-        request.setAttribute("user", text);*/
+        request.setAttribute("user", text);
         log.debug(request.getAttribute("user"));
-        //request.setAttribute("user", "Marianne");
+        request.setAttribute("user", "Marianne");
         dispatcher.forward(request, response) ;
 
 
@@ -48,6 +48,7 @@ public class HomeServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("result.jsp");
+        dispatcher.forward(request,response);
 
         if(request.getParameter("bouton_users")!=null){
             String myText = listUsers();
