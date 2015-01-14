@@ -16,28 +16,30 @@
 </head>
 <body>
 
+
 <div class="menu">
 
     <fieldset>
-        <form method="post" action="Home">
+        <form method="post" action="HomeServlet">
 
             <p>Menu</p>
 
             <input name="bouton_users" value="Afficher les utilisateurs" type="submit" class="bouton">
         </form>
 
-        <form method="post" action="listtweets&userid">
+        <form method="post" action="HomeServlet">
 
             <input name="utilisateur" type="text" placeholder="Nom de l'utilisateur" class="utilisateur">
+
             <input name="bouton_tweets" value="Récupérer les tweets d'un utilisateur" type="submit" class="bouton">
 
         </form>
 
-        <form method="post" action="listalltweets">
+        <form method="post" action="HomeServlet">
             <input name="bouton_alltweets" value="Récupérer tous les tweets" type="submit" class="bouton">
         </form>
 
-        <form method="post" action="updatedata">
+        <form method="post" action="HomeServlet">
             <input name="bouton_update" value="Mettre à jour la base de données" type="submit" class="bouton">
         </form>
     </fieldset>
@@ -45,7 +47,7 @@
 
 <div class="affichage" name="affichage_texte">
 
-    Hello <%= request.getAttribute("affichage_texte") %>
+    Hello <%=request.getAttribute("texte")%>
 
 </div>
 

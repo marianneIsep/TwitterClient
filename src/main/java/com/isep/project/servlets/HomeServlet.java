@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,7 +27,7 @@ public class HomeServlet extends HttpServlet {
         String resultView = JSPLOCATION + "result.jsp";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(resultView);
 
-        WSConfiguration wsConfiguration = new WSConfiguration();
+        /*WSConfiguration wsConfiguration = new WSConfiguration();
 
         String text = null;
         for (User user : wsConfiguration.getUsers())
@@ -35,30 +36,42 @@ public class HomeServlet extends HttpServlet {
             text += " name " + user.getName();
         }
 
-        request.setAttribute("user", text);
+        request.setAttribute("user", text);*/
         log.debug(request.getAttribute("user"));
-        request.setAttribute("user", "Marianne");
+        //request.setAttribute("user", "Marianne");
         dispatcher.forward(request, response) ;
+
 
     }
 
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+        RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("result.jsp");
+
         if(request.getParameter("bouton_users")!=null){
-            //String myText = listUsers();
-            String myText="mamamam";
-            request.setAttribute("affichage_texte", myText);
+            String myText = listUsers();
+            request.setAttribute("texte", myText);
 
         }
-        else{
+        else if (request.getParameter("bouton_tweets")!=null){
+            long id = request.getParameter();
+            String myText = listTweets(id);
+            request.setAttribute("texte", myText);
 
+        }
+        else if (request.getParameter("bouton_alltweets")!=null){
+            String myText = listUsersWithTweets();
+            request.setAttribute("texte", myText);
+        }
+        else if (request.getParameter("bouton_update")!=null){
+            request.setAttribute("texte", updateData());
         }
 
 
     }
 
-
+// Méthode pour récupérer tous les noms des utilisateurs
     private String listUsers(){
         WSConfiguration wsConfiguration = new WSConfiguration();
         List<User> maListe = wsConfiguration.getUsers();
@@ -71,6 +84,7 @@ public class HomeServlet extends HttpServlet {
         return myText;
     }
 
+//Méthode pour récupérer tous les tweets
     private String listUsersWithTweets(){
         WSConfiguration wsConfiguration = new WSConfiguration();
         List<User> maListe = wsConfiguration.getUsers();
@@ -84,6 +98,7 @@ public class HomeServlet extends HttpServlet {
         return myText;
     }
 
+ //Méthode pour récupérer les tweets d'un utilisateur
     private String listTweets(long id){
         WSConfiguration wsConfiguration = new WSConfiguration();
         List<Tweet> maListe = wsConfiguration.getTweetsFromUser(id);
@@ -97,6 +112,7 @@ public class HomeServlet extends HttpServlet {
         return myText;
     }
 
+//Méthode pour mettre à jour la BDD et afficher si cela a été fait
     private String updateData(){
         WSConfiguration wsConfiguration = new WSConfiguration();
         String myText = null;
@@ -108,5 +124,6 @@ public class HomeServlet extends HttpServlet {
             return myText;
         }
     }
+
 
 }
