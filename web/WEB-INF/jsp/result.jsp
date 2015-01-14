@@ -7,6 +7,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <link rel=stylesheet type="text/css" href="/css/style.css"/>
@@ -29,7 +30,11 @@
 
         <form method="post" action="/Home">
 
-            <input name="utilisateur" type="text" placeholder="Nom de l'utilisateur" class="utilisateur">
+            <select name="ddl_user">
+                <c:forEach items="${listUser}" var="item">
+                    <option value="${item.getId()}">${item.getName()}</option>
+                </c:forEach>
+            </select>
 
             <input name="bouton_tweets" value="Récupérer les tweets d'un utilisateur" type="submit" class="bouton">
 

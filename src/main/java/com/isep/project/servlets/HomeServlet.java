@@ -27,8 +27,9 @@ public class HomeServlet extends HttpServlet {
         String resultView = JSPLOCATION + "result.jsp";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(resultView);
 
-        request.setAttribute("texte", "kikou");;
-
+        WSConfiguration wsConfiguration = new WSConfiguration();
+        request.setAttribute("listUser",wsConfiguration.getUsers());
+        request.setAttribute("texte", "Choisissez une option dans le menu");
         dispatcher.forward(request, response) ;
 
 
@@ -40,81 +41,83 @@ public class HomeServlet extends HttpServlet {
         String resultView = JSPLOCATION + "result.jsp";
         RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(resultView);
 
-
+        WSConfiguration wsConfiguration = new WSConfiguration();
         if(request.getParameter("bouton_users")!=null){
-            String myText = listUsers();
+            String myText = listUsers(wsConfiguration);
             request.setAttribute("texte", myText);
 
         }
         else if (request.getParameter("bouton_tweets")!=null){
-            /*long id = request.getParameter();
-            String myText = listTweets(id);
-            request.setAttribute("texte", myText);*/
+            long userId = Long.parseLong(request.getParameter("ddl_user"));
+            String myText = listTweets(wsConfiguration,userId);
+            request.setAttribute("texte", myText);
 
         }
         else if (request.getParameter("bouton_alltweets")!=null){
-            String myText = listUsersWithTweets();
+            String myText = listUsersWithTweets(wsConfiguration);
             request.setAttribute("texte", myText);
         }
         else if (request.getParameter("bouton_update")!=null){
-            request.setAttribute("texte", updateData());
+            request.setAttribute("texte", updateData(wsConfiguration));
         }
-
+        request.setAttribute("listUser",wsConfiguration.getUsers());
         dispatcher.forward(request,response);
     }
 
 // Méthode pour récupérer tous les noms des utilisateurs
-    private String listUsers(){
-        WSConfiguration wsConfiguration = new WSConfiguration();
+    private String listUsers(WSConfiguration wsConfiguration){
         List<User> maListe = wsConfiguration.getUsers();
-        String myText = "Liste de tous les utiisateurs : </br>" ;
-
+        String output = "Liste de tous les utilisateurs : </br>" ;
+        output += "<ul>";
         for(User user : maListe){
-            myText += user.getName() + "</br>";
+            output += "<li>" + user.getName() + "</li>";
         }
-
-        return myText;
+        output += "</ul>";
+        return output;
     }
 
 //Méthode pour récupérer tous les tweets
-    private String listUsersWithTweets(){
-        WSConfiguration wsConfiguration = new WSConfiguration();
-        List<User> maListe = wsConfiguration.getUsers();
-        String myText = null;
+    private String listUsersWithTweets(WSConfiguration wsConfiguration){
+        List<User> userList = wsConfiguration.getUsers();
+        String output = "Liste des utilisateurs avec leurs tweets : ";
 
-        for(User user:maListe){
-            myText+=user.getName();
-            myText+=user.getTweets();
+        for(User user : userList){
+            output += "<ul>";
+            output += "<li><b>" + user.getName() + "</b></li>";
+            for(Tweet tweet : user.getTweets())
+            {
+                output += "<ul>";
+                output += "<li>"+ tweet.getDate() + " : " + tweet.getMessage() +"</li>";
+                output += "</ul>";
+            }
+            output += "</ul>";
+
         }
 
-        return myText;
+        return output;
     }
 
  //Méthode pour récupérer les tweets d'un utilisateur
-    private String listTweets(long id){
-        WSConfiguration wsConfiguration = new WSConfiguration();
-        List<Tweet> maListe = wsConfiguration.getTweetsFromUser(id);
-        String myText = null;
-
-        for(Tweet tweet:maListe){
-            myText+=tweet.getDate();
-            myText+=tweet.getMessage();
+    private String listTweets(WSConfiguration wsConfiguration, long id){
+        List<Tweet> tweetList = wsConfiguration.getTweetsFromUser(id);
+        String output = "Liste de Tweets de l'utilisateur : </br>";
+        output += "<ul>";
+        for(Tweet tweet : tweetList){
+            output += "<li>";
+            output += tweet.getDate() + " : ";
+            output += tweet.getMessage();
+            output += "</li>";
         }
-
-        return myText;
+        output += "</ul>";
+        return output;
     }
 
 //Méthode pour mettre à jour la BDD et afficher si cela a été fait
-    private String updateData(){
-        WSConfiguration wsConfiguration = new WSConfiguration();
-        String myText = null;
-        if(wsConfiguration.addTweets()){
-            myText+="Les tweets ont été mis à jour";
-            return myText;
-        }else{
-            myText+="Problème ! Aucun tweet mis à jour";
-            return myText;
-        }
+    private String updateData(WSConfiguration wsConfiguration){
+        if (wsConfiguration.addTweets())
+            return "Les tweets ont été mis à jour";
+        else
+            return "Problème ! Aucun tweet mis à jour";
     }
 
 
